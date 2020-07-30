@@ -10,13 +10,13 @@ Before that, There is an implementation of IMBD spider to crawl reviews from the
 The crawled reviews are stored in mongoDB.</b>
 
 # Dependencies are: 
-1-Scrapy </b>
-2-Pandas </b>
-3-shutil </b>
-4-re </b>
-5-Pymongo </b>
-6-Json </b>
-7-NLTK </b>
+1-Scrapy</b>
+2-Pandas</b>
+3-shutil</b>
+4-re</b>
+5-Pymongo</b>
+6-Json</b>
+7-NLTK</b>
 
 # Screenshots 
 # Data After Filteration
