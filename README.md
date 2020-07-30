@@ -1,27 +1,27 @@
 # IMBD Reviews ETL Pipe line
-A mongoDB stores thousands of reviews for over than 250 movies and all the information related to these movies. 
+A mongoDB stores thousands of reviews for over than 250 movies and all the information related to these movies.\
 
-</b> 
-In this repo, I implemented an ETL pipeline that to achieve the following:
-1-Collect reviews and stars from the database. 
-2-Filter the text and do the preprocessing task from: -Text Normalization-Noise Filteration-Stemming- 
-3-Store the data in Json files or Csv files. 
-</b>
-</b>
-Before that, There is an implementation of IMBD spider to crawl reviews from the website for 250 different movies from different genres. </b>
+
+<p>In this repo, I implemented an ETL pipeline that to achieve the following:</p>
+<ul>
+<li> Collect reviews and stars from the database.</li>
+<li> Filter the text and do the preprocessing task from: -Text Normalization-Noise Filteration-Stemming-.</li>
+<li> Store the data in Json files or Csv files.</li>
+</ul>
+
+Before that, There is an implementation of IMBD spider to crawl reviews from the website for 250 different movies from different genres.\
 The crawled reviews are stored in mongoDB.
-</b>
 
 # Dependencies are: 
-</b>
-1-Scrapy
-2-Pandas
-3-shutil
-4-re
-5-Pymongo
-6-Json
-7-NLTK
-</b>
+<ul>
+<li>Scrapy</li>
+<li>Pandas</li>
+<li>shutil</li>
+<li>re</li>
+<li>Pymongo</li>
+<li>Json</li>
+<li>NLTK</li>
+</ul>
 
 # Screenshots 
 # Data After Filteration
