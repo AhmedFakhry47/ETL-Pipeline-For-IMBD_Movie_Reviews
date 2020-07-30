@@ -2,7 +2,7 @@
 A mongoDB stores thousands of reviews for over than 250 movies and all the information related to these movies.\
 
 
-<p>In this repo, I implemented an ETL pipeline that to achieve the following:</p>
+<p>In this repo, I implemented an ETL pipeline to achieve the following:</p>
 <ul>
 <li> Collect reviews and stars from the database.</li>
 <li> Filter the text and do the preprocessing task from: -Text Normalization-Noise Filteration-Stemming-.</li>
