@@ -1,6 +1,5 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from scrapy.crawler import CrawlerProcess
 from pymongo import MongoClient
 import pymongo
 import scrapy
@@ -88,10 +87,6 @@ class IMBD_spider(scrapy.spiders.Spider):
 
 		yield None
 
-if __name__ == '__main__':
-	process = CrawlerProcess()
-	process.crawl(IMBD_spider)
-	process.start()
 
 
 

@@ -2,9 +2,13 @@ from pymongo import MongoClient
 from Sentiment_ import *
 import pandas as pd
 import pymongo
+import shutil
 import json
 import nltk
+import os
 
+#Get size of terminal for printing 
+columns = shutil.get_terminal_size().columns
 
 class ETL_pipeline():
 	'''
@@ -20,18 +24,6 @@ class ETL_pipeline():
 		self.mongoDB_url = meta['mongoDB_url']
 		self.fextension  = meta['extension']
 
-		self.switch = {'json': lambda df:df.to_json(orient="columns"),
-						'csv': lambda df:df.to_csv(index=False)}
-
-	def __print(self,whatto):
-		#to save lines of code
-		print(str(article['_id']).center(columns))
-		print('Article Section: '+str(article['nature']))
-		print('Article Date: '+str(article['date']))
-		print('\n')
-		print(article['article_text'])
-		print('\n')
-
 	def operate(self):
 		#First step of the ETL pipeline is to start connection with the database and start collecting data
 		self.cluster = MongoClient(self.mongoDB_url)
@@ -39,6 +31,15 @@ class ETL_pipeline():
 		self.collection = self.db["IMBD_Reviews"]	
 		self.collected_text = self.__collect()
 		self.__transform()
+		self.__store()
+
+	def __pprint(self,stri='',i=0):
+		if(i==0):print(str('____'+'Started '+stri+'____').center(columns))
+		else: 
+			print('.\n'.center(columns))
+			print('.\n'.center(columns))
+			print('.\n'.center(columns))
+			print(str('____'+'Finished '+stri+'____').center(columns))
 
 	def __navigate(self):
 		'''
@@ -60,8 +61,10 @@ class ETL_pipeline():
 		2-go through the documents and collect useful information
 		3-returns the collected information as a dataframe
 		'''	
+
 		staging_db = pd.DataFrame(columns=["Movie_N","Genre","Review","Stars"])
 		movies = self.__navigate()
+		self.__pprint(stri='Collection',i=0)
 		for movie in movies:
 			if(movie == None):
 				break
@@ -70,6 +73,8 @@ class ETL_pipeline():
 			temp = conversion_logic(temp)
 			temp = pd.DataFrame.from_dict(temp, orient='index')
 			staging_db = staging_db.append(temp,ignore_index=True)
+
+		self.__pprint(stri='Collection',i=1)
 		return staging_db
 
 
@@ -77,11 +82,16 @@ class ETL_pipeline():
 		'''
 		A function that does the preprocessing and the sentiment analysis over the text data
 		'''
+		self.__pprint(stri='Transform',i=0)
 		self.collected_text['Reviews_preprocessed'] = self.collected_text['Review'].apply(preprocess) 
 		self.collected_text['Part_of_Speech'] = self.collected_text['Review'].apply(pos_tag)
+		self.__pprint(stri='Transform',i=1)
 
 	def __store(self):
 		'''
 		One command function to store the preprocessed text into a json file
 		'''
-		self.switch[self.fextension]	
+		self.__pprint(stri='storage',i=0)
+		if(self.fextension =='json'):self.collected_text.to_json(path_or_buf=os.getcwd()+'/data.json',orient="columns")
+		elif(self.fextension =='csv'):self.collected_text.to_csv(path_or_buf=os.getcwd()+'/data.csv',index=False)
+		self.__pprint(stri='storage',i=1)
